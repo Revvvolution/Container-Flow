@@ -1,0 +1,6 @@
+@ContainerFlow_HostAddress = http://localhost:5045
+
+GET {{ContainerFlow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
