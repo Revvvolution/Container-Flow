@@ -26,7 +26,7 @@ CREATE TABLE [UserProfile] (
 CREATE TABLE [Item] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Name] nvarchar(255) NOT NULL,
-  [Description] nvarchar(255) NOT NULL,
+  [Description] nvarchar(255),
   [TagId] integer,
   [UserProfileId] integer NOT NULL,
 
@@ -40,7 +40,7 @@ CREATE TABLE [Item] (
 CREATE TABLE [Container] (
   [Id] integer PRIMARY KEY IDENTITY,
   [Name] nvarchar(255) NOT NULL,
-  [Description] nvarchar(255) NOT NULL,
+  [Description] nvarchar(255),
   [UserProfileId] integer NOT NULL,
 
   CONSTRAINT [FK_Container_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
