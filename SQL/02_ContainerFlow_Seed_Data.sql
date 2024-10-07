@@ -14,6 +14,24 @@ insert into UserProfile (Id, FirstName, LastName, DisplayName, Email) values (9,
 insert into UserProfile (Id, FirstName, LastName, DisplayName, Email) values (10, 'Ring', 'Pryer', 'rpryer9', 'rpryer9@shinystat.com');
 set identity_insert [UserProfile] off
 
+set identity_insert [Tag] on
+insert into Tag (Id, [Name]) values (1, 'Kitchen supplies');
+insert into Tag (Id, [Name]) values (2, 'Office Supplies');
+insert into Tag (Id, [Name]) values (3, 'Craft Materials');
+insert into Tag (Id, [Name]) values (4, 'Holiday Decorations');
+insert into Tag (Id, [Name]) values (5, 'Seasonal Clothing');
+insert into Tag (Id, [Name]) values (6, 'Toys');
+insert into Tag (Id, [Name]) values (7, 'Books');
+insert into Tag (Id, [Name]) values (8, 'Electronics');
+insert into Tag (Id, [Name]) values (9, 'Tools');
+insert into Tag (Id, [Name]) values (10, 'Cleaning Supplies');
+insert into Tag (Id, [Name]) values (11, 'Sports Equipment');
+insert into Tag (Id, [Name]) values (12, 'Pet Supplies');
+insert into Tag (Id, [Name]) values (13, 'Gardening Tools');
+insert into Tag (Id, [Name]) values (14, 'Hiking Gear');
+insert into Tag (Id, [Name]) values (15, 'Personal Care Items');
+set identity_insert [Tag] off
+
 set identity_insert [Item] on
 insert into Item (Id, [Name], [Description], TagId, UserProfileId) values (1, 'Dish Soap', 'Effective for cleaning dishes and utensils', 10, 5);
 insert into Item (Id, [Name], [Description], TagId, UserProfileId) values (2, 'Action Figure', 'Popular superhero action figure for kids', 6, 3);
@@ -89,25 +107,6 @@ insert into Container (Id, [Name], [Description], UserProfileId) values (18, 'Ho
 insert into Container (Id, [Name], [Description], UserProfileId) values (19, 'Cleaning Supplies Bin', 'Bin for cleaning supplies', 2);
 insert into Container (Id, [Name], [Description], UserProfileId) values (20, 'Tool Box', 'Box for organizing tools', 2);
 set identity_insert [Container] off
-
-set identity_insert [Tag] on
-insert into Tag (Id, [Name]) values (1, 'Kitchen supplies');
-insert into Tag (Id, [Name]) values (2, 'Office Supplies');
-insert into Tag (Id, [Name]) values (3, 'Craft Materials');
-insert into Tag (Id, [Name]) values (4, 'Holiday Decorations');
-insert into Tag (Id, [Name]) values (5, 'Seasonal Clothing');
-insert into Tag (Id, [Name]) values (6, 'Toys');
-insert into Tag (Id, [Name]) values (7, 'Books');
-insert into Tag (Id, [Name]) values (8, 'Electronics');
-insert into Tag (Id, [Name]) values (9, 'Tools');
-insert into Tag (Id, [Name]) values (10, 'Cleaning Supplies');
-insert into Tag (Id, [Name]) values (11, 'Sports Equipment');
-insert into Tag (Id, [Name]) values (12, 'Pet Supplies');
-insert into Tag (Id, [Name]) values (13, 'Gardening Tools');
-insert into Tag (Id, [Name]) values (14, 'Hiking Gear');
-insert into Tag (Id, [Name]) values (15, 'Personal Care Items');
-set identity_insert [Tag] off
-
 
 set identity_insert [ContainerItem] on
 insert into ContainerItem (Id, ContainerId, ItemId) values (1, 1, 9);  -- Non-stick Pan in Kitchen Storage Box

@@ -21,6 +21,7 @@ CREATE TABLE [UserProfile] (
   [FirstName] nvarchar(50) NOT NULL,
   [LastName] nvarchar(50) NOT NULL,
   [DisplayName] nvarchar(50) NOT NULL,
+  [Email] nvarchar(555) NOT NULL
 )
 
 CREATE TABLE [Tag] (
