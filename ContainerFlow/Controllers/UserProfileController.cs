@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using ContainerFlow.Models;
+using ContainerFlow.Repositories;
 
 namespace ContainerFlow.Controllers
 {
@@ -8,6 +8,13 @@ namespace ContainerFlow.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
+        private readonly IUserProfileRepository _userProfileRepository;
+
+        public UserProfileController(IUserProfileRepository userProfileRepository)
+        {
+            _userProfileRepository = userProfileRepository;
+        }
+
         // GET: api/<UserProfileController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -22,10 +29,31 @@ namespace ContainerFlow.Controllers
             return "value";
         }
 
+        [HttpGet("GetByEmail")]
+        public IActionResult GetByEmail(string email)
+        {
+            var user = _userProfileRepository.GetByEmail(email);
+
+            if (email == null || user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
         // POST api/<UserProfileController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] UserProfile userProfile)
         {
+            if (userProfile == null)
+            {
+                return BadRequest();
+            }
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                "GetByEmail",
+                new { email = userProfile.Email },
+                userProfile);
         }
 
         // PUT api/<UserProfileController>/5
