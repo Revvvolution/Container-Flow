@@ -8,11 +8,11 @@ USE [ContainerFlow]
 GO
 
 
-DROP TABLE IF EXISTS [UserProfile];
-DROP TABLE IF EXISTS [Tag];
-DROP TABLE IF EXISTS [Item];
-DROP TABLE IF EXISTS [Container];
 DROP TABLE IF EXISTS [ContainerItem];
+DROP TABLE IF EXISTS [Container];
+DROP TABLE IF EXISTS [Item];
+DROP TABLE IF EXISTS [Tag];
+DROP TABLE IF EXISTS [UserProfile];
 GO
 
 
@@ -26,7 +26,11 @@ CREATE TABLE [UserProfile] (
 
 CREATE TABLE [Tag] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(255) NOT NULL
+  [Name] nvarchar(255) NOT NULL,
+  [UserProfileId] integer NOT NULL,
+
+  CONSTRAINT [FK_Tag_UserProfile] FOREIGN KEY ([UserProfileId])
+	REFERENCES [UserProfile] 
 )
 
 CREATE TABLE [Item] (
