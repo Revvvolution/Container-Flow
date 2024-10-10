@@ -61,7 +61,7 @@ CREATE TABLE [ContainerItem] (
   [ContainerId] integer NOT NULL,
   [ItemId] integer NOT NULL,
 
-  CONSTRAINT [FK_ContainerItem_Container] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]),
-  CONSTRAINT [FK_ContainerItem_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item] ([Id])
+  CONSTRAINT [FK_ContainerItem_Container] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]) ON DELETE CASCADE,
+  CONSTRAINT [FK_ContainerItem_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item] ([Id]) ON DELETE CASCADE
 )
 GO

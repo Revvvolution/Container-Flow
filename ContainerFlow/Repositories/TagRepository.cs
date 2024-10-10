@@ -90,8 +90,7 @@ namespace ContainerFlow.Repositories
                     cmd.CommandText = @"
                     INSERT INTO Tag (Name, UserProfileId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name, @userProfileId);
-                ";
+                    VALUES (@name, @userProfileId)";
 
                     DbUtils.AddParameter(cmd, "@name", tag.Name);
                     DbUtils.AddParameter(cmd, "@userProfileId", tag.UserProfileId);
