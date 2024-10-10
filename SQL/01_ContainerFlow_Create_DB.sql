@@ -8,11 +8,11 @@ USE [ContainerFlow]
 GO
 
 
-DROP TABLE IF EXISTS [UserProfile];
-DROP TABLE IF EXISTS [Tag];
-DROP TABLE IF EXISTS [Item];
-DROP TABLE IF EXISTS [Container];
 DROP TABLE IF EXISTS [ContainerItem];
+DROP TABLE IF EXISTS [Container];
+DROP TABLE IF EXISTS [Item];
+DROP TABLE IF EXISTS [Tag];
+DROP TABLE IF EXISTS [UserProfile];
 GO
 
 
@@ -26,7 +26,11 @@ CREATE TABLE [UserProfile] (
 
 CREATE TABLE [Tag] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(255) NOT NULL
+  [Name] nvarchar(255) NOT NULL,
+  [UserProfileId] integer NOT NULL,
+
+  CONSTRAINT [FK_Tag_UserProfile] FOREIGN KEY ([UserProfileId])
+	REFERENCES [UserProfile] 
 )
 
 CREATE TABLE [Item] (
@@ -57,7 +61,7 @@ CREATE TABLE [ContainerItem] (
   [ContainerId] integer NOT NULL,
   [ItemId] integer NOT NULL,
 
-  CONSTRAINT [FK_ContainerItem_Container] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]),
-  CONSTRAINT [FK_ContainerItem_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item] ([Id])
+  CONSTRAINT [FK_ContainerItem_Container] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]) ON DELETE CASCADE,
+  CONSTRAINT [FK_ContainerItem_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item] ([Id]) ON DELETE CASCADE
 )
 GO
