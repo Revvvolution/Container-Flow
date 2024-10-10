@@ -14,6 +14,7 @@ namespace ContainerFlow
             builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             builder.Services.AddTransient<ITagRepository, TagRepository>();
             builder.Services.AddTransient<IContainerRepository, ContainerRepository>();
+            builder.Services.AddTransient<IItemRepository, ItemRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
