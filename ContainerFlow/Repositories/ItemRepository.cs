@@ -32,7 +32,7 @@ namespace ContainerFlow.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            TagId = DbUtils.GetInt(reader, "TagId"),
+                            TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                         });
                     }
@@ -68,7 +68,7 @@ namespace ContainerFlow.Repositories
                             Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
-                            TagId = DbUtils.GetInt(reader, "TagId"),
+                            TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                         };
 
@@ -94,7 +94,7 @@ namespace ContainerFlow.Repositories
                     cmd.CommandText = @"
                     INSERT INTO Item (Name, [Description], TagId, UserProfileId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name, @description,@tagId, @userProfileId)";
+                    VALUES (@name, @description, @tagId, @userProfileId)";
 
                     DbUtils.AddParameter(cmd, "@name", item.Name);
                     DbUtils.AddParameter(cmd, "@description", item.Description);
