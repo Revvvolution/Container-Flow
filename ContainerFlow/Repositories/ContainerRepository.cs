@@ -4,7 +4,7 @@ using ContainerFlow.Utils;
 
 namespace ContainerFlow.Repositories
 {
-    public class ContainerRepository : BaseRepository
+    public class ContainerRepository : BaseRepository, IContainerRepository
     {
         public ContainerRepository(IConfiguration config) : base(config) { }
 
@@ -116,7 +116,7 @@ namespace ContainerFlow.Repositories
                     cmd.CommandText = @"
                             UPDATE Container
                             SET 
-                                [Name] = @name
+                                [Name] = @name,
                          [Description] = @description
                             WHERE Id = @id";
 
