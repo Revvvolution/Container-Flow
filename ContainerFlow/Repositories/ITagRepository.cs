@@ -4,7 +4,7 @@ namespace ContainerFlow.Repositories
 {
     public interface ITagRepository
     {
-        List<Tag> GetAll();
+        List<Tag> GetAllUserTags(int userId);
         Tag GetTagById(int id);
         public void Add(Tag tag);
         public void Update(Tag tag);

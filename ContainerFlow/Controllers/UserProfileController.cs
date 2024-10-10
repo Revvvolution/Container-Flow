@@ -15,19 +15,6 @@ namespace ContainerFlow.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
-        // GET: api/<UserProfileController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<UserProfileController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         [HttpGet("GetByEmail")]
         public IActionResult GetByEmail(string email)
@@ -39,6 +26,14 @@ namespace ContainerFlow.Controllers
                 return NotFound();
             }
             return Ok(user);
+        }
+
+        [HttpGet("GetById")]
+        public IActionResult GetUserById(int id)
+        {
+            var user = _userProfileRepository.GetUserById(id);
+
+            return user == null ? NotFound() : Ok(user);
         }
 
         // POST api/<UserProfileController>

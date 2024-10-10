@@ -9,5 +9,8 @@ namespace ContainerFlow.Models
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
+
+        [Required]
+        public int UserProfileId { get; set; }
     }
 }

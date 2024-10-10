@@ -12,16 +12,21 @@ namespace ContainerFlow.Controllers
     {
         private readonly ITagRepository _tagRepository;
 
-        public TagController(ITagRepository tagRepository)
+        private readonly IUserProfileRepository _userProfileRepository;
+
+        public TagController(ITagRepository tagRepository, IUserProfileRepository userProfileRepository)
         {
             _tagRepository = tagRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         // GET: api/<TagController>
-        [HttpGet("GetAllTags")]
-        public IActionResult Get()
+        [HttpGet("GetAllUserTags/{id}")]
+        public IActionResult GetUserTags(int id)
         {
-            return Ok(_tagRepository.GetAll());
+            var user = _userProfileRepository.GetUserById(id);
+
+            return user == null ? NotFound() : Ok(_tagRepository.GetAllUserTags(id));
         }
 
         // GET api/<TagController>/5

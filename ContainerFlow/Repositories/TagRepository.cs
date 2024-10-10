@@ -8,15 +8,19 @@ namespace ContainerFlow.Repositories
     {
         public TagRepository(IConfiguration config) : base(config) { }
 
-        public List<Tag> GetAll()
+        public List<Tag> GetAllUserTags(int userId)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, [Name] FROM Tag
+                    cmd.CommandText = @"SELECT Id, [Name], UserProfileId FROM Tag
+                                        WHERE UserProfileId = @userProfileId
                                         ORDER BY Name ASC";
+
+                    DbUtils.AddParameter(cmd, "@userProfileId", userId);
+
                     var reader = cmd.ExecuteReader();
 
                     var tags = new List<Tag>();
@@ -27,6 +31,7 @@ namespace ContainerFlow.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                         });
                     }
 
@@ -45,7 +50,7 @@ namespace ContainerFlow.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name]
+                        SELECT Id, [Name], UserProfileId
                         FROM Tag
                         WHERE Id = @id
                     ";
@@ -60,6 +65,7 @@ namespace ContainerFlow.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             Name = DbUtils.GetString(reader, "Name"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                         };
 
                         reader.Close();
@@ -82,12 +88,13 @@ namespace ContainerFlow.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Tag (Name)
+                    INSERT INTO Tag (Name, UserProfileId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name);
+                    VALUES (@name, @userProfileId);
                 ";
 
                     DbUtils.AddParameter(cmd, "@name", tag.Name);
+                    DbUtils.AddParameter(cmd, "@userProfileId", tag.UserProfileId);
 
                     int id = (int)cmd.ExecuteScalar();
 

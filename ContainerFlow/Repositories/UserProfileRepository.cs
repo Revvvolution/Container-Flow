@@ -43,6 +43,40 @@ namespace ContainerFlow.Repositories
             }
         }
 
+        public UserProfile GetUserById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                    SELECT Id, FirstName, LastName, DisplayName, Email
+                                      FROM UserProfile
+                                     WHERE Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    UserProfile userProfile = null;
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        userProfile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            DisplayName = DbUtils.GetString(reader, "DisplayName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                        };
+                    }
+                    reader.Close();
+
+                    return userProfile;
+                }
+            }
+        }
 
         public void Add(UserProfile userProfile)
         {
