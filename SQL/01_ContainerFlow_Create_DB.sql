@@ -33,19 +33,6 @@ CREATE TABLE [Tag] (
 	REFERENCES [UserProfile] 
 )
 
-CREATE TABLE [Item] (
-  [Id] integer PRIMARY KEY IDENTITY,
-  [Name] nvarchar(255) NOT NULL,
-  [Description] nvarchar(255),
-  [TagId] integer,
-  [UserProfileId] integer NOT NULL,
-
-  CONSTRAINT [FK_Item_Tag] FOREIGN KEY ([TagId])
-	REFERENCES [Tag] ([Id]),
-
-  CONSTRAINT [FK_Item_UserProfile] FOREIGN KEY ([UserProfileId])
-	REFERENCES [UserProfile] ([Id])
-)
 
 CREATE TABLE [Container] (
   [Id] integer PRIMARY KEY IDENTITY,
@@ -56,12 +43,21 @@ CREATE TABLE [Container] (
   CONSTRAINT [FK_Container_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 )
 
-CREATE TABLE [ContainerItem] (
-  [id] integer PRIMARY KEY IDENTITY,
-  [ContainerId] integer NOT NULL,
-  [ItemId] integer NOT NULL,
+CREATE TABLE [Item] (
+  [Id] integer PRIMARY KEY IDENTITY,
+  [Name] nvarchar(255) NOT NULL,
+  [Description] nvarchar(255),
+  [TagId] integer,
+  [UserProfileId] integer NOT NULL,
+  [ContainerId] integer,
 
-  CONSTRAINT [FK_ContainerItem_Container] FOREIGN KEY ([ContainerId]) REFERENCES [Container] ([Id]) ON DELETE CASCADE,
-  CONSTRAINT [FK_ContainerItem_Item] FOREIGN KEY ([ItemId]) REFERENCES [Item] ([Id]) ON DELETE CASCADE
+  CONSTRAINT [FK_Item_Tag] FOREIGN KEY ([TagId])
+	REFERENCES [Tag] ([Id]),
+
+  CONSTRAINT [FK_Item_UserProfile] FOREIGN KEY ([UserProfileId])
+	REFERENCES [UserProfile] ([Id]),
+	
+  CONSTRAINT [FK_Item_Container] FOREIGN KEY ([ContainerId])
+	REFERENCES [Container] ([Id])  
 )
 GO
