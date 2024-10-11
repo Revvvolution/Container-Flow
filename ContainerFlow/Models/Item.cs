@@ -19,5 +19,7 @@ namespace ContainerFlow.Models
         public int UserProfileId { get; set; }
 
         public int? ContainerId  { get; set; }
+
+        public Tag? Tag { get; set; }
     }
 }

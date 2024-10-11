@@ -14,10 +14,19 @@ namespace ContainerFlow.Controllers
 
         private readonly IUserProfileRepository _userProfileRepository;
 
-        public ItemController(IItemRepository itemRepository, IUserProfileRepository userProfileRepository)
+        private readonly IContainerRepository _containerRepository;
+
+        private readonly ITagRepository _tagRepository;
+
+        public ItemController(IItemRepository itemRepository, 
+                              IUserProfileRepository userProfileRepository,
+                              IContainerRepository containerRepository,
+                              ITagRepository tagRepository)
         {
             _itemRepository = itemRepository;
             _userProfileRepository = userProfileRepository;
+            _containerRepository = containerRepository;
+            _tagRepository = tagRepository;
         }
 
         // GET: api/<ItemController>
@@ -39,6 +48,29 @@ namespace ContainerFlow.Controllers
                 return NotFound();
             }
             return Ok(item);
+        }
+
+        // GET: api/<ItemController>
+        [HttpGet("GetLooseItemsByUserId/{id}")]
+        public IActionResult GetItemsWithNoContainer(int id)
+        {
+            var user = _userProfileRepository.GetUserById(id);
+
+            return user == null ? NotFound() : Ok(_itemRepository.GetLooseItemsByUserId(id));
+        }
+
+        // GET api/<ItemController>/5
+        [HttpGet("GetItemsByContainerId/{id}")]
+        public IActionResult GetByContainerId(int id)
+        {
+            var container = _containerRepository.GetContainerById(id);
+
+            var items = _itemRepository.GetItemsByContainerId(id);
+            if (items == null || container == null)
+            {
+                return NotFound();
+            }
+            return Ok(items);
         }
 
         // POST api/<ItemController>

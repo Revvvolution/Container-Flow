@@ -4,10 +4,29 @@ using ContainerFlow.Utils;
 
 namespace ContainerFlow.Repositories
 {
+
     public class ItemRepository : BaseRepository, IItemRepository
     {
         public ItemRepository(IConfiguration config) : base(config) { }
 
+    // Method for query SElECT data to help replace redundancy
+    private string ItemSelect()
+    {
+        var itemQuery = @"SELECT 
+                            i.Id AS ItemId,
+                            i.[Name] AS ItemName,
+                            i.Description,
+                            i.TagId,
+                            t.[Name] AS TagName,
+                            i.UserProfileId,
+                            i.ContainerId
+                        FROM 
+                            Item i
+                        LEFT JOIN 
+                            Tag t ON i.TagId = t.Id ";
+
+        return itemQuery;
+    }
         public List<Item> GetAllUserItems(int userId)
         {
             using (var conn = Connection)
@@ -15,10 +34,8 @@ namespace ContainerFlow.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, [Name], [Description], TagId, UserProfileId, ContainerId
-                                        FROM Item
-                                        WHERE UserProfileId = @userProfileId
-                                        ORDER BY Name ASC";
+                    cmd.CommandText = ItemSelect() + @"WHERE i.UserProfileId = @userProfileId
+                                        ORDER BY i.[Name] ASC;";
 
                     DbUtils.AddParameter(cmd, "@userProfileId", userId);
 
@@ -28,15 +45,23 @@ namespace ContainerFlow.Repositories
 
                     while (reader.Read())
                     {
-                        items.Add(new Item()
+                        var item = new Item()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            Name = DbUtils.GetString(reader, "Name"),
+                            Id = DbUtils.GetInt(reader, "ItemId"),
+                            Name = DbUtils.GetString(reader, "ItemName"),
                             Description = DbUtils.GetString(reader, "Description"),
                             TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
-                        });
+                            Tag = reader.IsDBNull(reader.GetOrdinal("TagId")) ? null : new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            },
+                        };
+
+                        items.Add(item);
                     }
 
                     reader.Close();
@@ -53,11 +78,7 @@ namespace ContainerFlow.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"
-                        SELECT Id, [Name], [Description], TagId, UserProfileId, ContainerId
-                        FROM Item
-                        WHERE Id = @id
-                    ";
+                    cmd.CommandText = ItemSelect() + "WHERE i.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 
@@ -67,12 +88,18 @@ namespace ContainerFlow.Repositories
                     {
                         Item item = new Item()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            Name = DbUtils.GetString(reader, "Name"),
+                            Id = DbUtils.GetInt(reader, "ItemId"),
+                            Name = DbUtils.GetString(reader, "ItemName"),
                             Description = DbUtils.GetString(reader, "Description"),
                             TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                             ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
+                            Tag = reader.IsDBNull(reader.GetOrdinal("TagId")) ? null : new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            },
                         };
 
                         reader.Close();
@@ -83,6 +110,95 @@ namespace ContainerFlow.Repositories
                         reader.Close();
                         return null;
                     }
+                }
+            }
+        }
+
+        public List<Item> GetLooseItemsByUserId(int userId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = ItemSelect() + @"WHERE i.UserProfileId = @userProfileId 
+                                                         AND i.ContainerId IS NULL
+                                                    ORDER BY i.[Name] ASC;";
+
+                    DbUtils.AddParameter(cmd, "@userProfileId", userId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var items = new List<Item>();
+
+                    while (reader.Read())
+                    {
+                        var item = new Item()
+                        {
+                            Id = DbUtils.GetInt(reader, "ItemId"),
+                            Name = DbUtils.GetString(reader, "ItemName"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            TagId = DbUtils.GetNullableInt(reader, "TagId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
+                            Tag = reader.IsDBNull(reader.GetOrdinal("TagId")) ? null : new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            },
+                        };
+
+                        items.Add(item);
+                    }
+
+                    reader.Close();
+
+                    return items;
+                }
+            }
+        }
+
+        public List<Item> GetItemsByContainerId(int containerId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = ItemSelect() + @"WHERE ContainerId = @containerId
+                                      ORDER BY i.[Name] ASC;";
+
+                    DbUtils.AddParameter(cmd, "@containerId", containerId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var items = new List<Item>();
+
+                    while (reader.Read())
+                    {
+                        var item = new Item()
+                        {
+                            Id = DbUtils.GetInt(reader, "ItemId"),
+                            Name = DbUtils.GetString(reader, "ItemName"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            TagId = DbUtils.GetNullableInt(reader, "TagId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
+                            Tag = reader.IsDBNull(reader.GetOrdinal("TagId")) ? null : new Tag()
+                            {
+                                Id = DbUtils.GetInt(reader, "TagId"),
+                                Name = DbUtils.GetString(reader, "TagName"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            },
+                        };
+
+                        items.Add(item);
+                    }
+
+                    reader.Close();
+
+                    return items;
                 }
             }
         }
