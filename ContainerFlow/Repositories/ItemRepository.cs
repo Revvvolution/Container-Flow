@@ -15,7 +15,8 @@ namespace ContainerFlow.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, [Name], [Description], TagId, UserProfileId FROM Item
+                    cmd.CommandText = @"SELECT Id, [Name], [Description], TagId, UserProfileId, ContainerId
+                                        FROM Item
                                         WHERE UserProfileId = @userProfileId
                                         ORDER BY Name ASC";
 
@@ -34,6 +35,7 @@ namespace ContainerFlow.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
                         });
                     }
 
@@ -52,7 +54,7 @@ namespace ContainerFlow.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, [Name], [Description], TagId, UserProfileId
+                        SELECT Id, [Name], [Description], TagId, UserProfileId, ContainerId
                         FROM Item
                         WHERE Id = @id
                     ";
@@ -70,6 +72,7 @@ namespace ContainerFlow.Repositories
                             Description = DbUtils.GetString(reader, "Description"),
                             TagId = DbUtils.GetNullableInt(reader, "TagId"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            ContainerId = DbUtils.GetNullableInt(reader, "ContainerId"),
                         };
 
                         reader.Close();
@@ -92,14 +95,15 @@ namespace ContainerFlow.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Item (Name, [Description], TagId, UserProfileId)
+                    INSERT INTO Item (Name, [Description], TagId, UserProfileId, ContainerId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name, @description, @tagId, @userProfileId)";
+                    VALUES (@name, @description, @tagId, @userProfileId, @containerId)";
 
                     DbUtils.AddParameter(cmd, "@name", item.Name);
                     DbUtils.AddParameter(cmd, "@description", item.Description);
                     DbUtils.AddParameter(cmd, "@tagId", item.TagId);
                     DbUtils.AddParameter(cmd, "@userProfileId", item.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@containerId", item.ContainerId);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -121,12 +125,14 @@ namespace ContainerFlow.Repositories
                             SET 
                               [Name] = @name,
                        [Description] = @description,
-                               TagId = @tagId
+                               TagId = @tagId,
+                         ContainerId = @containerId
                             WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@name", item.Name);
                     DbUtils.AddParameter(cmd, "@description", item.Description);
                     DbUtils.AddParameter(cmd, "@tagId", item.TagId);
+                    DbUtils.AddParameter(cmd, "@containerId", item.ContainerId);
                     DbUtils.AddParameter(cmd, "@id", item.Id);
 
                     cmd.ExecuteNonQuery();
