@@ -9,6 +9,8 @@ export default function Register({setIsLoggedIn}) {
     const [firstName, setFirstName] = useState();
     const [lastName, setLastName] = useState();
     const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [password_confirmation, setPassword_confirmation] = useState();
 
     const registerClick = (e) => {
         e.preventDefault();
@@ -20,7 +22,6 @@ export default function Register({setIsLoggedIn}) {
             firstName: firstName, 
             lastName: lastName, 
             email: email,
-            imageLocation: imageLocation
            }
           try {
           register(userProfile, password)
@@ -39,14 +40,19 @@ export default function Register({setIsLoggedIn}) {
             <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
                 <div>
                     <a href="/">
-                        <h3 className="text-4xl font-bold text-purple-600">
-                            Logo
-                        </h3>
+                        <img
+                            alt="ContainerFlow Logo"
+                            src="src\assets\images\ContainerFlow Logo.png"
+                            className="mx-auto h-[40vh] w-auto rounded-2xl"
+                        />
                     </a>
+                    <h2 className="mt-4 text-center text-2xl font-bold leading-9 tracking-normal text-gray-900">
+                            Register
+                    </h2>
                 </div>
-                <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-                    <form>
-                        <div>
+                <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-zinc-700/20 shadow-md sm:max-w-md sm:rounded-lg">
+                    <form onSubmit={registerClick}>
+                        <div className="mt-2">
                             <label
                                 htmlFor="firstName"
                                 className="block text-sm font-medium text-gray-700 undefined"
@@ -57,11 +63,14 @@ export default function Register({setIsLoggedIn}) {
                                 <input
                                     type="text"
                                     name="firstName"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    required
+                                    onChange={e => setFirstName(e.target.value)}
+                                    autoComplete="firstName"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="mt-2">
                             <label
                                 htmlFor="lastName"
                                 className="block text-sm font-medium text-gray-700 undefined"
@@ -72,11 +81,14 @@ export default function Register({setIsLoggedIn}) {
                                 <input
                                     type="text"
                                     name="lastName"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    required
+                                    onChange={e => setLastName(e.target.value)}
+                                    autoComplete="lastName"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>
-                        <div>
+                        <div className="mt-2">
                             <label
                                 htmlFor="displayName"
                                 className="block text-sm font-medium text-gray-700 undefined"
@@ -87,7 +99,10 @@ export default function Register({setIsLoggedIn}) {
                                 <input
                                     type="text"
                                     name="displayName"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    required
+                                    onChange={e => setDisplayName(e.target.value)}
+                                    autoComplete="displayName"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>
@@ -100,9 +115,12 @@ export default function Register({setIsLoggedIn}) {
                             </label>
                             <div className="flex flex-col items-start">
                                 <input
-                                    type="email"
                                     name="email"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    type="email"
+                                    required
+                                    onChange={e => setEmail(e.target.value)}
+                                    autoComplete="email"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>
@@ -117,7 +135,9 @@ export default function Register({setIsLoggedIn}) {
                                 <input
                                     type="password"
                                     name="password"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    onChange={e => setPassword(e.target.value)}
+                                    autoComplete="password"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>
@@ -132,7 +152,9 @@ export default function Register({setIsLoggedIn}) {
                                 <input
                                     type="password"
                                     name="password_confirmation"
-                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    onChange={e => setPassword_confirmation(e.target.value)}
+                                    autoComplete="password"
+                                    className="block w-full mt-1 pl-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                 />
                             </div>
                         </div>

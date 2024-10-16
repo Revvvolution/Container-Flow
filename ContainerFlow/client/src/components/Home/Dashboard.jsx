@@ -11,16 +11,17 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <span style={{
-      position: "fixed",
-      left: 0,
-      right: 0,
-      top: "50%",
-      marginTop: "-0.5rem",
-      textAlign: "center",
-      fontSize: "32px",
-      fontWeight: "bolder",
-      textShadow: "2px 2px 6px gray"
-    }}>Welcome to Tabloid, {userFName}!</span>
+    <span className="-z-20"
+        style={{
+            position: "fixed",
+            left: 0,
+            right: 0,
+            top: "50%",
+            marginTop: "-0.5rem",
+            textAlign: "center",
+            fontSize: "32px",
+            fontWeight: "bolder",
+            textShadow: "2px 2px 6px gray"
+        }}>Welcome to ContainerFlow, {userFName}!</span>
   );
 }

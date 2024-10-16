@@ -7,7 +7,7 @@ export default function ApplicationViews() {
   
    return(
         <Routes>
-            <Route path="/home" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
         </Routes>
    );
  
