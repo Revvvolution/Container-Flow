@@ -34,7 +34,7 @@ export default function Login({setIsLoggedIn}) {
         <body class="h-full">
         ```
       */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 md:py-8 sm:py-2 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-3 md:py-8 sm:py-2 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="ContainerFlow Logo"
@@ -71,7 +71,7 @@ export default function Login({setIsLoggedIn}) {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a href="/" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <a href="/" className="font-semibold text-yellow-800 hover:text-yellow-700">
                     Forgot password?
                   </a>
                 </div>
@@ -84,7 +84,7 @@ export default function Login({setIsLoggedIn}) {
                   required
                   onChange={e => setPassword(e.target.value)}
                   autoComplete="current-password"
-                  className="block w-full pl-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full pl-1 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-700 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -92,16 +92,16 @@ export default function Login({setIsLoggedIn}) {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-yellow-800/80 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-95 hover:shadow-inner hover:shadow-yellow-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-700"
               >
                 Sign in
               </button>
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 mb-4 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a onClick={() => navigate('/register')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500, cursor-pointer">
+            <a onClick={() => navigate('/register')} className="font-semibold leading-6 text-yellow-800 hover:text-yellow-700 cursor-pointer">
               Register
             </a>
           </p>
