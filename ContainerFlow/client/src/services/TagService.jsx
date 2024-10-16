@@ -4,7 +4,7 @@ const apiUrl = "https://localhost:5001/api/Tag";
 //fetch to get list of user's Tags
 export const getAllUserTags = (userId) => {
     return fetch(`${apiUrl}/GetAllUserTags/${userId}`)
-    .then((res) => res.json())
+    .then((res) => res.json());
 };
 
 // Return a single tag by its Id
