@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Menu, Transition, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { deleteTag } from "../../services/TagService.jsx";
+import { TagModal } from "./TagModal.jsx";
+import { SuccessModal } from "../Modal/SuccessModal.jsx";
 
 export const TagCard = ({ tag }) => {
+
+    const [showTagModal, setShowTagModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    const handleDelete = () => {
+        deleteTag(tag.id).then(() => {
+            setShowTagModal(false);
+            setShowSuccessModal(true);
+        });
+    };
+
+    const handleCloseSuccessModal = () => {
+        setShowSuccessModal(false);
+        window.location.reload();
+    };
+
     return (
+        <>
         <li key={tag.id} className="flex items-center justify-between bg-gray-100 p-2 mb-2 rounded shadow-lg shadow-slate-800/60">
             <span className="text-slate-950">{tag.name}</span>
             <Menu as="div" className="relative inline-block text-left">
@@ -28,7 +48,9 @@ export const TagCard = ({ tag }) => {
                                     Edit
                                 </MenuItem>
                             </Link>
-                                <MenuItem as="button" className="bg-red-700/90 text-white md:text-gray-900 md:bg-inherit hover:bg-red-700/90 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm">
+                                <MenuItem as="button" 
+                                className="bg-red-700/90 text-white md:text-gray-900 md:bg-inherit hover:bg-red-700/90 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
+                                onClick={() => setShowTagModal(true)}>
                                     Delete
                                 </MenuItem>
                         </div>
@@ -36,5 +58,16 @@ export const TagCard = ({ tag }) => {
                 </Transition>
             </Menu>
         </li>
+            <TagModal
+                show={showTagModal}
+                onClose={() => setShowTagModal(false)}
+                onConfirm={handleDelete}
+            />
+            <SuccessModal
+                show={showSuccessModal}
+                onClose={handleCloseSuccessModal}
+                message={"Tag deleted successfully."}
+            />
+        </>
     );
 };
