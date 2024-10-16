@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 
 
 export const TagCreate = () => {
-    const tagId = useParams();
     const [tagName, setTagName] = useState('');
     const [userProfileId, setUserProfileId] = useState(null);
 

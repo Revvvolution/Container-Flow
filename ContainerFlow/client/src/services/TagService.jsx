@@ -10,7 +10,7 @@ export const getAllUserTags = (userId) => {
 // Return a single tag by its Id
 export const getTagById = (id) => {
     return fetch(`${apiUrl}/GetTagById/${id}`)
-    .then((res) => res.json())
+    .then((res) => res.json());
 };
 
 // POST method for adding a new user-associated tag to database
