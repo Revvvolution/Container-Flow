@@ -49,8 +49,8 @@ export const ItemCard = ({ item }) => {
             <span className="text-slate-950">{item.description}</span>
         </div>
         <span className="absolute bottom-2 right-2.5">
-            <TagIcon className="inline-block w-5 h-5 mr-1" />
-            {tagForItem.name}
+            {tagForItem.name ? (
+            <><TagIcon className="inline-block w-5 h-5 mr-1" /> {tagForItem.name}</> ) : ("") }
         </span>  
             <Menu as="div" className="absolute top-2 right-2 z-10 inline-block text-left">
                 <MenuButton className="inline-flex justify-center w-full rotate-90 rounded-md bg-slate-700/30 p-1 text-sm font-medium text-gray-100 hover:bg-gray-200 hover:text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
