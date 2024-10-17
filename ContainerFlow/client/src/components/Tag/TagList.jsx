@@ -20,7 +20,7 @@ export const TagList = () => {
             setTags(tagsList);
             setTimeout(() => {
                 setLoading(false);
-            }, 800);
+            }, 600);
         });
     }, [id]);
 

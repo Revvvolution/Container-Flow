@@ -43,7 +43,8 @@ export const ItemCard = ({ item }) => {
 
     return (
         <>
-        <li key={item.id} className="relative flex items-center justify-between bg-slate-700/30 p-2 mb-2 rounded shadow-lg shadow-slate-800/60 h-60">
+        <li key={item.id} className={`relative flex items-center justify-between ${item.containerId ? "bg-gradient-to-tr from-slate-300/90 via-emerald-600/90 to-slate-300/80" : "bg-gradient-to-tr from-slate-700/30 via-slate-700/50 to-slate-700/30"} p-2 mb-2 rounded shadow-lg shadow-slate-800/60 h-60`}>
+        {item.containerId && <GiBoxUnpacking className="absolute top-2 left-2 w-5 h-5 mr-1" />}
         <div className="flex flex-col text-center border-2 w-full leading-9 h-40 justify-around">
             <span className="text-slate-950 text-xl font-bold">{item.name}</span>
             <span className="text-slate-950">{item.description}</span>
