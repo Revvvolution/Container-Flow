@@ -10,7 +10,7 @@ export default function Header() {
   const [userProfileId, setUserProfileId] = useState();
   
   const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-  const userId = parseInt(userProfile.id);
+  const userId = userProfile ? parseInt(userProfile.id) : '';
 
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ export default function Header() {
         <Link to={"/"} className="hover:text-gray-200">
           Containers
         </Link>
-        <Link to={"/"} className="hover:text-gray-200">
+        <Link to={`/items/${userProfileId}`} className="hover:text-gray-200">
           Items
         </Link>
         <Link to={`/tags/${userProfileId}`} className="hover:text-gray-200">
@@ -50,12 +50,14 @@ export default function Header() {
         <Link to={"/"} className="hover:text-gray-200">
           Account
         </Link>
+        <Link to={"/"}>
         <div className="absolute right-4"
             onClick={handleLogout}
                 >
                 <span className="border-2 py-1 px-1 rounded-lg bg-slate-300 shadow-inner shadow-black cursor-pointer hover:opacity-90"
                 >Logout</span>
         </div>
+        </Link>
       </nav>
       <nav className="sm:hidden flex flex-col items-end gap-1 mt-40 w-full font-semibold bg-gradient-to-b from-cyan-600/75 via-cyan-700/90 to-zinc-500/90 z-30">
         <button
@@ -72,7 +74,7 @@ export default function Header() {
             <Link to={"/"} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
                 Containers
             </Link>
-            <Link to={"/"} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
+            <Link to={`/items/${userProfileId}`} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
                 Items
             </Link>
             <Link to={`/tags/${userProfileId}`} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
@@ -81,7 +83,7 @@ export default function Header() {
             <Link to={"/"} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
                 Account
             </Link>
-            <Link className="hover:text-gray-200 pb-2 pt-2 w-[100vw]">
+            <Link to={"/"} className="hover:text-gray-200 pb-2 pt-2 w-[100vw]">
                 <span className="border-2 py-1 px-1 rounded-lg bg-slate-300 shadow-inner shadow-black font-black"
                     onClick={handleLogout}
                 >Logout</span>
