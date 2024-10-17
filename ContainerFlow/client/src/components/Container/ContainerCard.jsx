@@ -53,14 +53,16 @@ export const ContainerCard = ({ container }) => {
 
     return (
         <>
-        <li key={container.id} className="relative flex items-center justify-between bg-gradient-to-tr from-yellow-800/70 via-yellow-800/90 to-slate-200 p-2 mb-2 rounded shadow-lg shadow-slate-800/60 h-60">
+        <li key={container.id} 
+        className={`relative flex items-center justify-between ${itemsForContainer.length > 0 ? ("bg-gradient-to-tr from-yellow-800/70 via-yellow-800/90 to-slate-300/90") : ("bg-gradient-to-tr from-slate-700/30 via-slate-700/50 to-slate-700/30")} p-2 mb-2 rounded shadow-lg shadow-slate-800/60 h-60`}
+        >
         <div className="flex flex-col text-center border-2 w-full leading-9 h-40 justify-around">
             <span className="text-slate-950 text-xl font-bold">{container.name}</span>
             <span className="text-slate-950">{container.description}</span>
             <div className="flex justify-around items-center mx-4 bg-transparent">
             <>
                 {tagsForContainerItems.map((tag) => (
-                <span key={tag.id} className="text-xs bg-gray-300/70 rounded-full px-2 py-1 mx-1">
+                <span key={tag.id} className="text-xs bg-gray-300/70 rounded-full px-2 py-1 mx-1 flex justify-center items-center">
                     <TagIcon className="inline-block w-5 h-5 mr-1" />{tag.name}
                 </span>
                 ))}
@@ -72,7 +74,7 @@ export const ContainerCard = ({ container }) => {
             <>{"Total Items: "} <span className="font-bold">{itemsForContainer.length}</span></> ) : ("") }
         </span>  
             <Menu as="div" className="absolute top-2 right-2 z-10 inline-block text-left">
-                <MenuButton className="inline-flex justify-center w-full rotate-90 rounded-md bg-slate-700/30 p-1 text-sm font-medium text-gray-100 hover:bg-gray-200 hover:text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <MenuButton className="inline-flex justify-center w-full rotate-90 rounded-lg p-1 text-sm font-medium text-gray-900 hover:bg-gray-300 hover:text-gray-500 hover:shadow-inner hover:shadow-black focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-opacity-75">
                     <EllipsisVerticalIcon className="w-5 h-5" aria-hidden="true" />
                 </MenuButton>
                 <Transition
@@ -85,7 +87,7 @@ export const ContainerCard = ({ container }) => {
                     leaveTo="transform opacity-0 scale-95"
                 >
                     <MenuItems className="absolute right-0 mt-2 w-20 md:w-40 origin-top-right rounded-xl bg-transparent md:bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-                        <div className="flex flex-col border-2 md:border-slate-700/50 rounded-xl">
+                        <div className="flex flex-col border-none md:border-slate-700/50 rounded-xl">
                             <Link to={`/containers/edit/${container.id}`}>
                                 <MenuItem as="button" className="bg-slate-700/70 text-white md:bg-inherit mb-1 md:bg-none md:text-gray-900 hover:bg-blue-700/70 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm">
                                     Details
