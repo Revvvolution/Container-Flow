@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { editTag, getTagById } from "../../services/TagService.jsx";
 import { useParams } from 'react-router-dom';
+import { SuccessModal } from "../Modal/SuccessModal.jsx";
 
 
 export const TagEdit = () => {
@@ -10,6 +11,8 @@ export const TagEdit = () => {
         name: '',
         userProfileId: '',
     });
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
 
     const { id } = useParams();
 
@@ -42,15 +45,20 @@ export const TagEdit = () => {
         };
         try {
             await editTag(updatedTag);
-            window.alert("Changes saved successfully");
-            navigate(`/tags/${form.userProfileId}`);
+            setShowSuccessModal(true);
         } catch (error) {
             console.error("There was an error while trying to add tag:", error);
         }
     };
 
+    const handleCloseSuccessModal = () => {
+        setShowSuccessModal(false);
+        navigate(`/tags/${form.userProfileId}`);
+    };
+
 
     return (
+        <>
         <div className="flex flex-col items-center min-h-screen mt-6 md:-mt-20 sm:justify-center sm:pt-0">
         <div>
                 <h2 className="text-center text-2xl md:text-3xl md:mb-10 font-bold leading-9 tracking-normal text-gray-900">
@@ -81,16 +89,14 @@ export const TagEdit = () => {
                     <div className="flex items-center justify-end mt-4">
                         <button
                             type="submit"
-                            className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
+                            className="inline-flex items-center px-4 py-2 ml-0 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-900 border border-transparent rounded-md active:bg-gray-900 false"
                         >
                             Submit
                         </button>
                         <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 ml-4 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-red-700/70 border border-transparent rounded-md active:bg-gray-900 false"
-                            onClick={() => {
-                                window.alert("Changes cancelled");
-                                 navigate(-1) }}
+                            onClick={() => {navigate(-1) }}
                         >
                             Cancel
                         </button>
@@ -100,7 +106,14 @@ export const TagEdit = () => {
             </div>
         </div>
     </div>
+    <SuccessModal
+        show={showSuccessModal}
+        onClose={handleCloseSuccessModal}
+        title={"Success"}
+        message={"Tag edited successfully."}
+    />
 
+    </>
     );
 
 

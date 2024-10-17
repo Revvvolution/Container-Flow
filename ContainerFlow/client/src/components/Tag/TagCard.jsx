@@ -66,6 +66,7 @@ export const TagCard = ({ tag }) => {
             <SuccessModal
                 show={showSuccessModal}
                 onClose={handleCloseSuccessModal}
+                title={"Success"}
                 message={"Tag deleted successfully."}
             />
         </>
