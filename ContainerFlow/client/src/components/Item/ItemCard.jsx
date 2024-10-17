@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Transition, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import { TagIcon } from '@heroicons/react/24/outline';
+import { GiBoxUnpacking } from 'react-icons/gi';
 import { Fragment } from 'react';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteItem } from "../../services/ItemService.jsx";
 import { SuccessModal } from "../Modal/SuccessModal.jsx";
 import { ItemModal } from "./ItemModal.jsx";
+import { getTagById } from "../../services/TagService.jsx";
+
 
 export const ItemCard = ({ item }) => {
 
     const [showItemModal, setShowItemModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [tagForItem, setTagForItem] = useState({});
+
+    useEffect(() => {
+        if (item.tagId) {
+          getTagById(item.tagId)
+            .then((itemObj) => {
+              setTagForItem(itemObj);
+            })
+            .catch((error) => {
+              console.error("Error fetching tag:", error);
+            });
+        }
+      }, [item]);
 
     const handleDelete = () => {
         deleteItem(item.id).then(() => {
@@ -30,7 +47,11 @@ export const ItemCard = ({ item }) => {
         <div className="flex flex-col text-center border-2 w-full leading-9 h-40 justify-around">
             <span className="text-slate-950 text-xl font-bold">{item.name}</span>
             <span className="text-slate-950">{item.description}</span>
-        </div>    
+        </div>
+        <span className="absolute bottom-2 right-2.5">
+            <TagIcon className="inline-block w-5 h-5 mr-1" />
+            {tagForItem.name}
+        </span>  
             <Menu as="div" className="absolute top-2 right-2 z-10 inline-block text-left">
                 <MenuButton className="inline-flex justify-center w-full rotate-90 rounded-md bg-slate-700/30 p-1 text-sm font-medium text-gray-100 hover:bg-gray-200 hover:text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                     <EllipsisVerticalIcon className="w-5 h-5" aria-hidden="true" />

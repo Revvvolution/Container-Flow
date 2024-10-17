@@ -17,7 +17,7 @@ export const TagModal = ({ show, onClose, onConfirm }) => {
                     </button>
                     <button 
                         onClick={onConfirm} 
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                        className="bg-red-700/70 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                     >
                         Delete
                     </button>
