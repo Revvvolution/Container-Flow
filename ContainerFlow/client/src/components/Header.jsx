@@ -41,7 +41,7 @@ export default function Header() {
         <Link to={"/"} className="hover:text-gray-200">
           Containers
         </Link>
-        <Link to={"/"} className="hover:text-gray-200">
+        <Link to={`/items/${userProfileId}`} className="hover:text-gray-200">
           Items
         </Link>
         <Link to={`/tags/${userProfileId}`} className="hover:text-gray-200">
@@ -72,7 +72,7 @@ export default function Header() {
             <Link to={"/"} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
                 Containers
             </Link>
-            <Link to={"/"} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
+            <Link to={`/items/${userProfileId}`} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">
                 Items
             </Link>
             <Link to={`/tags/${userProfileId}`} onClick={() => setShowMenu(!showMenu)} className="text-emerald-100 hover:shadow-lg hover:shadow-black mt-1 pb-2 border-b-2 border-b-slate-950/50 w-[100vw]">

@@ -4,6 +4,7 @@ import Dashboard from "./Home/Dashboard.jsx";
 import { TagList } from "./Tag/TagList.jsx";
 import { TagCreate } from "./Tag/TagCreate.jsx";
 import { TagEdit } from "./Tag/TagEdit.jsx";
+import { ItemList } from "./Item/ItemList.jsx";
 
 
 export default function ApplicationViews() {
@@ -17,6 +18,8 @@ export default function ApplicationViews() {
             <Route path="/tags/new/:id" element={<TagCreate />} />
             
             <Route path="/tags/edit/:id" element={<TagEdit />} />
+
+            <Route path="/items/:id" element={<ItemList />} />
 
             <Route path="*" element={<p>Whoops, nothing here...</p>} />
 
