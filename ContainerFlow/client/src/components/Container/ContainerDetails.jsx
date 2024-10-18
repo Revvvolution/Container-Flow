@@ -31,7 +31,7 @@ export const ContainerDetails = () => {
     
         editItem(updatedItem).then(() => {
             setItems(items.filter(item => item.id !== itemId));
-            setSuccessMessage("Item removed from" + `${container.name}`)
+            setSuccessMessage(`${itemToRemove.name}` + " removed from" + `${container.name}`)
             setShowSuccessModal(true);
         });
     };
@@ -45,7 +45,7 @@ export const ContainerDetails = () => {
         editItem(updatedItem).then(() => {
             setItems([...items, updatedItem]);
             setShowAddItemModal(false);
-            setSuccessMessage("Item added to" + `${container.name}`);
+            setSuccessMessage(`${item.name}` + " added to " + `${container.name}`);
             setShowSuccessModal(true);
         });
     };
@@ -54,7 +54,7 @@ export const ContainerDetails = () => {
         <div className="container mx-auto p-4">
             <h1 className="text-3xl font-bold text-center mb-4">{container.name} Items</h1>
             <p className="text-lg text-center mb-8">{container.description}</p>
-            <button onClick={() => setShowAddItemModal(true)} className="bg-green-600/80 hover:bg-green-600/90 text-white p-2 rounded mb-6">
+            <button onClick={() => setShowAddItemModal(true)} className="bg-green-600/70 text-white px-4 py-2 rounded mt-1 mb-8 md:px-2 md:py-2  sm:top-10 sm:left-10 z-0 shadow-md shadow-black hover:shadow-sm hover:translate-y-1 hover:shadow-slate-950">
                 <span className="hidden md:inline-block">Add Item</span>
                 <span className="md:hidden px-2">+</span>
             </button>
@@ -66,8 +66,8 @@ export const ContainerDetails = () => {
             <SuccessModal
                 show={showSuccessModal}
                 onClose={handleCloseSuccessModal}
-                title="Removed"
-                message={`Item removed from ${container.name}`}
+                title="Success"
+                message={successMessage}
             />
             <AddItemModal
                 show={showAddItemModal}
