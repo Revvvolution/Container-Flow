@@ -44,12 +44,12 @@ export const TagCard = ({ tag }) => {
                     <MenuItems className="absolute right-0 mt-2 w-20 md:w-40 origin-top-right rounded-xl bg-transparent md:bg-white divide-y divide-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                         <div className="flex flex-col border-2 md:border-slate-700/50 rounded-xl">
                             <Link to={`/tags/edit/${tag.id}`}>
-                                <MenuItem as="button" className="bg-blue-700/70 text-white md:bg-inherit mb-1 md:bg-none md:text-gray-900 hover:bg-blue-700/70 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm">
+                                <MenuItem as="button" className="bg-blue-700/90 text-white md:bg-inherit mb-1 md:bg-none md:text-gray-900 hover:bg-blue-700/70 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm">
                                     Edit
                                 </MenuItem>
                             </Link>
                                 <MenuItem as="button" 
-                                className="bg-red-700/90 text-white md:text-gray-900 md:bg-inherit hover:bg-red-700/90 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
+                                className="bg-red-700/90 text-white md:text-gray-900 md:bg-inherit hover:bg-red-700/70 hover:text-white group flex rounded-md items-center w-full px-2 py-2 text-sm"
                                 onClick={() => setShowTagModal(true)}>
                                     Delete
                                 </MenuItem>

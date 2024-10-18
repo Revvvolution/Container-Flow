@@ -7,6 +7,9 @@ import { TagEdit } from "./Tag/TagEdit.jsx";
 import { ItemList } from "./Item/ItemList.jsx";
 import { ItemCreate } from "./Item/ItemCreate.jsx";
 import { ItemEdit } from "./Item/ItemEdit.jsx";
+import { ContainerList } from "./Container/ContainerList.jsx";
+import { ContainerDetails } from "./Container/ContainerDetails.jsx";
+import { ContainerCreate } from "./Container/ContainerCreate.jsx";
 
 
 export default function ApplicationViews() {
@@ -26,6 +29,12 @@ export default function ApplicationViews() {
             <Route path="/items/new/:id" element={<ItemCreate />} />
             
             <Route path="/items/edit/:id" element={<ItemEdit />} />
+
+            <Route path="/containers/:id" element={<ContainerList />} />
+            
+            <Route path="/containers/details/:id" element={<ContainerDetails />} />
+            
+            <Route path="/containers/new/:id" element={<ContainerCreate />} />
 
             <Route path="*" element={<p>Whoops, nothing here...</p>} />
 
