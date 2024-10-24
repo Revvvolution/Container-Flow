@@ -51,8 +51,8 @@ CREATE TABLE [Item] (
   [UserProfileId] integer NOT NULL,
   [ContainerId] integer,
 
-  CONSTRAINT [FK_Item_Tag] FOREIGN KEY ([TagId])
-	REFERENCES [Tag] ([Id]),
+  CONSTRAINT [FK_Item_Tag] FOREIGN KEY ([TagId]) 
+	REFERENCES [Tag] ([Id]) ON DELETE SET NULL,
 
   CONSTRAINT [FK_Item_UserProfile] FOREIGN KEY ([UserProfileId])
 	REFERENCES [UserProfile] ([Id]),
