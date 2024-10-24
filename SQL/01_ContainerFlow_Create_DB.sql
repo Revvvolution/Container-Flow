@@ -58,6 +58,6 @@ CREATE TABLE [Item] (
 	REFERENCES [UserProfile] ([Id]),
 	
   CONSTRAINT [FK_Item_Container] FOREIGN KEY ([ContainerId])
-	REFERENCES [Container] ([Id])  
+	REFERENCES [Container] ([Id]) ON DELETE SET NULL 
 )
 GO
