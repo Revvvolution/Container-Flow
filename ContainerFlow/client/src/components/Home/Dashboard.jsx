@@ -11,17 +11,13 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <span className="-z-20"
-        style={{
-            position: "fixed",
-            left: 0,
-            right: 0,
-            top: "50%",
-            marginTop: "-0.5rem",
-            textAlign: "center",
-            fontSize: "32px",
-            fontWeight: "bolder",
-            textShadow: "2px 2px 6px gray"
-        }}>Welcome to ContainerFlow, {userFName}!</span>
+    <div className="h-40 w-full flex flex-col items-center">
+      <img src="src\assets\images\ContainerFlow Logo.png" alt="Logo"
+           className="w-6/12 md:w-1/5 py-8" />
+      <span className="font-bold text-3xl md:text-4xl lg:text-5xl"
+            style={{textShadow: "2px 2px 5px gray"}}>
+        Welcome to ContainerFlow, {userFName}!
+        </span>
+    </div>
   );
 }
