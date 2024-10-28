@@ -118,7 +118,7 @@ export const ContainerCard = ({ container }) => {
                 show={showSuccessModal}
                 onClose={handleCloseSuccessModal}
                 title={"Success"}
-                message={"Item deleted successfully."}
+                message={"Container deleted successfully."}
             />
         </>
     );
