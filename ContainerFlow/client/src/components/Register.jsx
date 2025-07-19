@@ -37,7 +37,7 @@ export default function Register({setIsLoggedIn}) {
 
      return(
         <div>
-            <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+            <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gradient-to-tr from-cyan-300 to-slate-200/20">
                 <div>
                     <a href="/">
                         <img
@@ -50,7 +50,7 @@ export default function Register({setIsLoggedIn}) {
                             Register
                     </h2>
                 </div>
-                <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-zinc-700/20 shadow-md sm:max-w-md sm:rounded-lg">
+                <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-zinc-700/30 shadow-md sm:max-w-md sm:rounded-lg mb-8">
                     <form onSubmit={registerClick}>
                         <div className="mt-2">
                             <label
