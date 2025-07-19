@@ -1,8 +1,8 @@
-# Container-Flow
+# ContainerFlow
 
 ## Overview
 
-Container-Flow is an ASP.NET Core Web API paired with a React + Vite front end. It uses Tailwind CSS for styling, TSQL for database scripts, and Swagger for API exploration.
+ContainerFlow is an ASP.NET Core Web API paired with a React + Vite front end. It uses Tailwind CSS for styling, TSQL for database scripts, and Swagger for API exploration.
 
 ---
 
