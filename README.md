@@ -98,7 +98,7 @@ npm run dev
 | Path               | Description                                                         |
 |--------------------|---------------------------------------------------------------------|
 | ContainerFlow.sln  | Visual Studio solution file                                         |
-| SQL/               | Database schema (`schema.sql`) and seed data (`seed.sql`)           |
+| SQL/               | Database [schema and seed data](https://github.com/Revvvolution/Container-Flow/tree/main/SQL)|                          |
 | ContainerFlow/     | ASP.NET Core Web API project                                        |
 | client/            | React + Vite + Tailwind CSS front-end                               |
 | .gitignore         | Files and folders to ignore in Git                                  |
